@@ -92,6 +92,7 @@ in {
     ./readarr
     ./sonarr
     ./openssh
+    ./profilarr
     ./prowlarr
     ./transmission
     ./sabnzbd
