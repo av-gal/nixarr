@@ -38,11 +38,11 @@ with python3.pkgs; buildPythonApplication rec {
 
   pyproject = false;
 
-  # postPatch = ''
-  #   mkdir $out/static
-  #   cp -a ${frontend} $out/static
-  #   cp -a ${sourceRoot}/app $out/app
-  # '';
+  postPatch = ''
+    # mkdir $out/static
+    # cp -a ${frontend} $out/static
+    cp -a ${sourceRoot}/app $out/app
+  '';
 
   build-system = [
     setuptools
@@ -67,7 +67,7 @@ with python3.pkgs; buildPythonApplication rec {
 
   postInstall = 
     let start_script = writeShellScript "start-profilarr" ''
-        ${lib.getExe gunicorn} "$@" --name=profilarr app.main:create_app
+        ${lib.getExe gunicorn} "$@" --name=profilarr --chdir app.main:create_app
       '';
       in 
       ''
