@@ -38,7 +38,8 @@ with python3Packages; buildPythonApplication rec {
   pyproject = false;
 
   postPatch = ''
-    cp -a ${frontend} static
+    cp -a ${frontend} $out/static
+    cp -a ${sourceRoot}/app $out/app
   '';
 
   build-system = [
