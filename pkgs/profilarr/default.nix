@@ -42,7 +42,7 @@ with python3.pkgs; buildPythonApplication rec {
     # mkdir $out/static
     # cp -a ${frontend} $out/static
     ls -lar
-    cp -a ${sourceRoot}/app $out/app
+    cp -a app __init__.py $out
   '';
 
   build-system = [
