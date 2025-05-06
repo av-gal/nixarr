@@ -59,6 +59,7 @@ with python3.pkgs; buildPythonApplication rec {
   ];
 
   passthru = {
+    inherit python3;
     pythonPath = python3.pkgs.makePythonPath propagatedBuildInputs;
   };
 

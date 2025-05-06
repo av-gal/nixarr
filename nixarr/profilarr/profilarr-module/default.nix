@@ -54,7 +54,7 @@ in {
       serviceConfig = {
         Type = "simple";
         DynamicUser = true;
-        ExecStart = "${lib.getExe gunicorn} --bind 0.0.0.0:6868 --chdir ${cfg.package.src}/backend app.main:create_app()";
+        ExecStart = "${lib.getExe cfg.package.python3.pkgs.gunicorn} --bind 0.0.0.0:6868 --chdir ${cfg.package.src}/backend app.main:create_app()";
         Restart = "on-failure";
       };
     };
