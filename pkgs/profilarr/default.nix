@@ -1,7 +1,6 @@
 {
   lib,
   python3,
-  python3Packages,
   buildNpmPackage,
   buildPythonPackage,
   fetchFromGitHub,
@@ -31,7 +30,7 @@ frontend = buildNpmPackage {
 
 in
 
-with python3Packages; buildPythonApplication rec {
+with python3.pkgs; buildPythonApplication rec {
   inherit pname version src;
   sourceRoot = "${src.name}/backend";
 
@@ -47,7 +46,7 @@ with python3Packages; buildPythonApplication rec {
     setuptools-scm
   ];
 
-  dependencies = [
+  propagatedBuildInputs = [
     flask
     flask-cors
     pyyaml
@@ -58,6 +57,10 @@ with python3Packages; buildPythonApplication rec {
     apscheduler
     gunicorn
   ];
+
+  passthru = {
+    pythonPath = python3.pkgs.makePythonPath propagatedBuildInputs;
+  };
 
   # nativeCheckInputs = [
   #   hypothesis
