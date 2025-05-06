@@ -54,7 +54,7 @@ in {
       serviceConfig = {
         Type = "simple";
         DynamicUser = true;
-        ExecStart = "${lib.getExe cfg.package} --bind 0.0.0.0:6868 app.main:create_app()";
+        ExecStart = "${lib.getExe cfg.package} --bind 0.0.0.0:6868";
         Restart = "on-failure";
       };
     };
