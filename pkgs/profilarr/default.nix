@@ -41,6 +41,7 @@ with python3.pkgs; buildPythonApplication rec {
   postPatch = ''
     # mkdir $out/static
     # cp -a ${frontend} $out/static
+    ls -lar
     cp -a ${sourceRoot}/app $out/app
   '';
 
