@@ -4,6 +4,8 @@
   buildNpmPackage,
   buildPythonPackage,
   fetchFromGitHub,
+  makeWrapper,
+  writeShellScript,
 }:
 let
   pname = "profilarr";
@@ -36,17 +38,22 @@ with python3.pkgs; buildPythonApplication rec {
 
   pyproject = false;
 
-  postPatch = ''
-    cp -a ${frontend} $out/static
-    cp -a ${sourceRoot}/app $out/app
-  '';
+  # postPatch = ''
+  #   mkdir $out/static
+  #   cp -a ${frontend} $out/static
+  #   cp -a ${sourceRoot}/app $out/app
+  # '';
 
   build-system = [
     setuptools
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [
+  nativeBuildInputs = [
+    makeWrapper
+  ];
+
+  dependencies = [
     flask
     flask-cors
     pyyaml
@@ -58,10 +65,19 @@ with python3.pkgs; buildPythonApplication rec {
     gunicorn
   ];
 
-  passthru = {
-    inherit python3;
-    pythonPath = python3.pkgs.makePythonPath propagatedBuildInputs;
-  };
+  postInstall = 
+    let start_script = writeShellScript "start-profilarr" ''
+        ${lib.getExe gunicorn} "$@" --name=profilarr app.main:create_app
+      '';
+      in 
+      ''
+      mkdir -p $out/bin
+
+      makeWrapper ${start_script} $out/bin/profilarr \
+        --set PYTHONPATH "$out/${python3.sitePackages}:${python3.pkgs.makePythonPath dependencies}" \
+        --set STATIC_FILES "${frontend}"
+
+    '';
 
   # nativeCheckInputs = [
   #   hypothesis
@@ -72,7 +88,7 @@ with python3.pkgs; buildPythonApplication rec {
     description = "Configuration development platform for Radarr/Sonarr ";
     homepage = "https://github.com/Dictionarry-Hub/profilarr";
     license = lib.licenses.gpl3Only;
-    # mainProgram = gu
+    mainProgram = "profilarr";
     maintainers = with lib.maintainers; [
       av-gal
     ];
