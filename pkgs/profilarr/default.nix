@@ -38,12 +38,12 @@ with python3.pkgs; buildPythonApplication rec {
 
   pyproject = false;
 
-  postPatch = ''
-    # mkdir $out/static
-    # cp -a ${frontend} $out/static
-    ls -lar
-    cp -a app __init__.py $out
-  '';
+  # postPatch = ''
+  #   # mkdir $out/static
+  #   # cp -a ${frontend} $out/static
+  #   ls -lar
+  #   cp -a app __init__.py $out
+  # '';
 
   build-system = [
     setuptools
@@ -73,6 +73,7 @@ with python3.pkgs; buildPythonApplication rec {
       in 
       ''
       mkdir -p $out/bin
+      cp -a app __init__.py $out
 
       makeWrapper ${start_script} $out/bin/profilarr \
         --set PYTHONPATH "$out/${python3.sitePackages}:${python3.pkgs.makePythonPath dependencies}" \
