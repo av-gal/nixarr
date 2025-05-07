@@ -56,6 +56,7 @@ in {
         DynamicUser = true;
         ExecStart = "${lib.getExe cfg.package} --bind 0.0.0.0:6868";
         Restart = "on-failure";
+        Environment = "CONFIG_DIR=${dataDir}";
       };
     };
 
