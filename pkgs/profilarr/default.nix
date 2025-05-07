@@ -73,7 +73,6 @@ with python3.pkgs; buildPythonApplication rec {
       makeWrapper ${lib.getExe gunicorn} $out/bin/profilarr \
         --set PYTHONPATH "$out/${python3.sitePackages}:${python3.pkgs.makePythonPath dependencies}" \
         --set STATIC_FILES "${frontend}" \
-        --set CONFIG_DIR 
         --append-flags "--name=profilarr --chdir $out 'app.main:create_app()'"
 
     '';
