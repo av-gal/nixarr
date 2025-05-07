@@ -12,8 +12,8 @@ let
   src = fetchFromGitHub {
     owner = "Dictionarry-Hub";
     repo = pname;
-    tag = "v${version}";
-    hash = "sha256-xrzR9bcI/snu8j1uIfeYLEc9tSt4n+8fKMSWsX4R27Q=";
+    rev = "9e2d1979ef9752a848c011983d7ed2f877b8fe1b";
+    hash = "";
   };
 
 frontend = buildNpmPackage {
