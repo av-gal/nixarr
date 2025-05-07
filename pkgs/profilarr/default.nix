@@ -13,7 +13,7 @@ let
     owner = "Dictionarry-Hub";
     repo = pname;
     rev = "9e2d1979ef9752a848c011983d7ed2f877b8fe1b";
-    hash = "";
+    hash = "sha256-0h9uy/kl19NA5EnRDvzdaaisqGa1CmcdYKnz9YOZXDQ=";
   };
 
 frontend = buildNpmPackage {
