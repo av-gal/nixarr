@@ -5,10 +5,9 @@
   ...
 }:
 with lib; let
-gunicorn = pkgs.python3Packages.gunicorn;
+  gunicorn = pkgs.python3Packages.gunicorn;
   cfg = config.util-nixarr.services.profilarr;
 in {
-
   options = {
     util-nixarr.services.profilarr = {
       enable = mkEnableOption "Profilarr";
