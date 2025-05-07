@@ -5,7 +5,6 @@
   buildPythonPackage,
   fetchFromGitHub,
   makeWrapper,
-  writeShellScript,
 }:
 let
   pname = "profilarr";
@@ -67,17 +66,14 @@ with python3.pkgs; buildPythonApplication rec {
   ];
 
   postInstall = 
-    let start_script = writeShellScript "start-profilarr" ''
-        ${lib.getExe gunicorn} "$@" --name=profilarr --chdir ${placeholder "out"} app.main:create_app
-      '';
-      in 
       ''
       mkdir -p $out/bin
       cp -a app __init__.py $out
 
-      makeWrapper ${start_script} $out/bin/profilarr \
+      makeWrapper ${lib.getExe gunicorn} $out/bin/profilarr \
         --set PYTHONPATH "$out/${python3.sitePackages}:${python3.pkgs.makePythonPath dependencies}" \
-        --set STATIC_FILES "${frontend}"
+        --set STATIC_FILES "${frontend}" \
+        --append-flags "--name=profilarr --chdir $out app.main:create_app"
 
     '';
 
