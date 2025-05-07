@@ -8,7 +8,7 @@ with lib; let
   defaultPort = 6868;
   nixarr = config.nixarr;
   cfg = config.nixarr.profilarr;
-  pkg = with pkgs; callPackage ../../pkgs/profilarr {buildPythonPackage = pkgs.python3Packages.buildPythonPackage;};
+  pkg = with pkgs; callPackage ../../pkgs/profilarr {};
 in {
   imports = [
     ./profilarr-module

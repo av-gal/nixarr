@@ -31,14 +31,13 @@ in
   with python3.pkgs;
     buildPythonApplication rec {
       inherit pname version src;
-      
+
       sourceRoot = "${src.name}/backend";
 
       pyproject = false;
 
       build-system = [
         setuptools
-        setuptools-scm
       ];
 
       nativeBuildInputs = [
