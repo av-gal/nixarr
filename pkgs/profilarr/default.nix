@@ -68,7 +68,7 @@ with python3.pkgs; buildPythonApplication rec {
 
   postInstall = 
     let start_script = writeShellScript "start-profilarr" ''
-        ${lib.getExe gunicorn} "$@" --name=profilarr --chdir $out app.main:create_app
+        ${lib.getExe gunicorn} "$@" --name=profilarr --chdir ${placeholder "out"} app.main:create_app
       '';
       in 
       ''
