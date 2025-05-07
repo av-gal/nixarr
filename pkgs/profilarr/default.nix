@@ -1,5 +1,6 @@
 {
   lib,
+  git,
   python3,
   buildNpmPackage,
   buildPythonPackage,
@@ -72,6 +73,7 @@ with python3.pkgs; buildPythonApplication rec {
       cp -a ${frontend} $out/app/static
 
       makeWrapper ${lib.getExe gunicorn} $out/bin/profilarr \
+        --prefix PATH : ${lib.getBin git} \
         --set PYTHONPATH "$out/${python3.sitePackages}:${python3.pkgs.makePythonPath dependencies}" \
         --append-flags "--name=profilarr --chdir $out 'app.main:create_app()'"
 
