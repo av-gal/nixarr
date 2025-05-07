@@ -69,10 +69,10 @@ with python3.pkgs; buildPythonApplication rec {
       ''
       mkdir -p $out/bin
       cp -a app __init__.py $out
+      cp -a ${frontend} $out/app/static
 
       makeWrapper ${lib.getExe gunicorn} $out/bin/profilarr \
         --set PYTHONPATH "$out/${python3.sitePackages}:${python3.pkgs.makePythonPath dependencies}" \
-        --set STATIC_FILES "${frontend}" \
         --append-flags "--name=profilarr --chdir $out 'app.main:create_app()'"
 
     '';
